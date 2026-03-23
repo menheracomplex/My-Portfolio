@@ -46,7 +46,7 @@
 
         /* Navigasi */
         header {
-display: flex;
+            display: flex;
             justify-content: space-between;
             align-items: center;
             
@@ -71,6 +71,250 @@ display: flex;
             font-size: 1.5rem;
             font-weight: bold;
             text-transform: uppercase;
+            text-decoration: none;
+            color: white;
+        }
+
+/* --- Pembaruan Navbar --- */
+        nav.nav-links {
+            display: flex;
+            align-items: center;
+            gap: 50px; /* Jarak antar teks menu */
+        }
+
+        nav.nav-links a {
+            text-decoration: none;
+            color: #f4f4f0;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        nav.nav-links a:hover {
+            text-decoration: none;
+        }
+
+        /* Kapsul Putih Let's Connect */
+        .btn-connect {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+         border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: none;
+            transition: all 0.3s ease;
+            margin-left: 20px; /* Jarak ekstra dari menu teks */
+        }
+
+        .btn-connect:hover {
+            transform: translateY(-3px);
+            background-color: #0a0a0a; /* Tombol jadi oranye saat di-hover */
+            color: #f4f4f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+;
+        }
+
+        /* --- Pop-up / Modal Let's Connect --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(10, 10, 10, 0.85); /* Hitam transparan */
+            backdrop-filter: blur(15px); /* Efek blur yang kuat di latar belakang */
+            z-index: 2000; /* Berada di atas segalanya kecuali custom cursor */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* Animasi tersembunyi secara default */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #121212;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 50px;
+            border-radius: 24px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            
+            /* Animasi meluncur dari bawah saat muncul */
+            transform: translateY(40px);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 2.5rem;
+            line-height: 1;
+            cursor: none;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #F06767; /* Berubah merah saat disorot */
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            color: #f4f4f0;
+        }
+
+        .modal-desc {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .modal-socials {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .social-pill {
+            display: inline-block;
+            padding: 14px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: #f4f4f0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .social-pill:hover {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            border-color: #f4f4f0;
+        }
+
+        .modal-email-section p {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .email-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px 0;
+            background-color: #E25E3A; /* Tombol oranye mencolok */
+            color: #f4f4f0;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            cursor: none;
+        }
+
+        .email-btn:hover {
+            background-color: #c94d2b;
+        }
+
+/* --- Gaya Dasar Hamburger (Disembunyikan di Laptop) --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 2000; /* Harus di atas menu full-screen */
+        }
+
+        .hamburger .line {
+            width: 30px;
+            height: 2px;
+            background-color: #f4f4f0;
+            transition: all 0.3s ease;
+        }
+
+        /* --- Responsif Navbar untuk Layar Kecil (HP & Tablet) --- */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: flex; /* Munculkan hamburger di HP */
+            }
+
+            /* Menyulap nav-links menjadi Full-Screen Menu */
+            nav.nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: #0a0a0a; /* Gelap pekat */
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                
+                /* Posisi awal: Tersembunyi di atas layar */
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-100%);
+                transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1500;
+            }
+
+            /* Saat Hamburger diklik, menu meluncur turun */
+            nav.nav-links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            /* Menampilkan kembali link dan membesarkan teksnya */
+            nav.nav-links a {
+                display: block; 
+                font-size: 2rem; /* Teks raksasa ala Awwwards */
+                font-weight: 500;
+            }
+
+            /* Menyesuaikan posisi Let's Connect di dalam menu HP */
+            .btn-connect {
+                margin-left: 0;
+                font-size: 1.2rem;
+                padding: 15px 35px;
+                margin-top: 20px;
+            }
+
+            /* Animasi Hamburger berubah menjadi tanda silang (X) saat aktif */
+            .hamburger.active .line:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active .line:nth-child(2) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
         }
 
         /* Hero Section */
@@ -194,21 +438,22 @@ display: flex;
             transform: translate(-50%, -50%); /* Menarik gambar tepat ke titik tengah layar */
             width: 35vw; /* Lebar gambar responsif mengikuti layar laptop */
             max-width: 450px;
-            height: 65vh; /* Gambar dibuat agak memanjang (portrait) */
+            /*height: 65vh; /* Gambar dibuat agak memanjang (portrait) */
             z-index: 1; /* Berada di belakang teks */
             opacity: 0.8;
             pointer-events: none; /* Agar kursor tetap membaca teks di depannya */
+            border-radius: 50%;
         }
 
         .hero-center-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(100%) contrast(110%); /* Tetap hitam putih agar tidak merusak palet warna gelap kita */
+            /*filter: grayscale(100%) contrast(110%); /* Tetap hitam putih agar tidak merusak palet warna gelap kita */
         }
 
         /* Efek Masking Radial (Ujung gambar memudar) */
-        .mask-radial {
+       .mask-radial {
             -webkit-mask-image: radial-gradient(circle, black 40%, transparent 90%);
             mask-image: radial-gradient(circle, black 40%, transparent 90%);
         }
@@ -518,7 +763,7 @@ display: flex;
             display: grid;
             grid-template-columns: 1fr 1.5fr; /* Membagi 2: Area kiri (kosong) lebih kecil, kanan (menu) lebih lebar */
             gap: 5vw;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            /*border-top: 1px solid rgba(255, 255, 255, 0.1);*/
             margin-top: 100px;
         }
 
