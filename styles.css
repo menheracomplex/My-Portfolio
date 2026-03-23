@@ -599,7 +599,7 @@
             /* Teks akan berukuran 1rem di HP, dan perlahan membesar maksimal 1.5rem di layar laptop */
             font-size: clamp(1rem, 2.5vw, 1.5rem); 
             
-            font-weight: 300;
+            font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 1px;
             padding-right: 15px; 
