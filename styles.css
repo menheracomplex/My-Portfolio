@@ -1,0 +1,732 @@
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Menyembunyikan kursor bawaan */
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #f4f4f0;
+            overflow-x: hidden;
+            /*background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);*/
+            background-size: 80px 80px; /* Ukuran kotak grid, bisa kamu perbesar/perkecil */
+            background-position: center center;
+            background-attachment: fixed; /* Grid tetap diam di tempat saat web di-scroll */
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f4f4f0;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none; /* Agar kursor tidak menghalangi klik */
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: #f4f4f0;
+        }
+
+        /* Layout Dasar */
+        .container {
+            padding: 0 5vw;
+        }
+
+        /* Navigasi */
+        header {
+display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            /* --- Sticky Positioning --- */
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            
+            /* --- Efek Glassmorphism (Blur) --- */
+            /*background-color: rgba(10, 10, 10, 0.6); /* Warna latar hitam dengan transparansi 60% */
+            backdrop-filter: blur(12px); /* Efek blur di belakang navbar */
+            -webkit-backdrop-filter: blur(12px); /* Dukungan untuk browser Safari */
+            
+            /* --- Styling & Full Width Trick --- */
+            padding: 25px 5vw; /* Padding disesuaikan agar rapi */
+            margin-left: -5vw; /* Menarik navbar ke ujung kiri layar */
+            margin-right: -5vw; /* Menarik navbar ke ujung kanan layar */
+            /*border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Garis bawah transparan tipis sebagai pembatas */
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Hero Section */
+/* --- Hero Section (Komposisi Tengah) --- */
+/* --- Commission Status Pill --- */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px; /* Jarak antara teks status dan CLOSED */
+            padding: 8px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Stroke putih transparan agar elegan */
+            border-radius: 50px; /* Membuat bentuk pill/kapsul */
+            background-color: #0a0a0a; /* Warna dominan latar web */
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px; /* Jarak ke teks "Hi, there" di bawahnya */
+            align-self: flex-start; /* Memastikan pill tetap di kiri */
+            cursor: none; /* Menjaga custom cursor bekerja */
+            position: relative;
+            z-index: 3; /* Memastikan bisa diklik/disorot di atas gambar */
+        }
+
+        .status-text {
+            color: #f4f4f0;
+            opacity: 0.7; /* Sedikit diredupkan agar fokus ke tulisan CLOSED */
+            font-weight: 500;
+        }
+
+        .status-badge {
+            color: #F06767; /* Merah sesuai permintaanmu */
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+ /* Lampu indikator merah menyala dengan efek kedip */
+        .status-badge::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #F06767;
+            border-radius: 50%;
+            /* Memanggil animasi bernama 'pulse' dengan durasi 1.5 detik, berulang terus (infinite) */
+            animation: pulse-red 1.5s infinite ease-in-out; 
+        }
+
+        /* --- Animasi Keyframes untuk Kedip (Pulse) --- */
+        @keyframes pulse-red {
+            0% {
+                opacity: 1;
+                box-shadow: 0 0 8px rgba(240, 103, 103, 0.8);
+            }
+            50% {
+                opacity: 0.3; /* Meredup di tengah animasi */
+                box-shadow: 0 0 2px rgba(240, 103, 103, 0.2); /* Cahaya glow mengecil */
+            }
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 8px rgba(240, 103, 103, 0.8);
+            }
+        }
+        .hero {
+            height: auto;
+            min-height: 85vh; /* Sedikit dilebarkan untuk memberi ruang pada gambar tengah */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /*margin-top: 30px;*/
+            position: relative;
+        }
+
+        .hero-main-composition {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10vh; /* Jarak vertikal antara "Hi, there" dan "I'm Rumi" agar gambar tengah terlihat */
+            margin-top: 3vh;
+        }
+
+        /* --- Tipografi --- */
+        .hero-title {
+            font-size: clamp(4rem, 13vw, 12rem); /* Ukuran disesuaikan agar proporsional */
+            line-height: 0.8;
+            font-weight: 500;
+            letter-spacing: -0.05em;
+            margin: 0;
+            color: #f4f4f0;
+            cursor: none;
+            /*text-transform: uppercase;
+            
+            /* Agar teks menimpa gambar dan berubah warna otomatis */
+            position: relative;
+            z-index: 2;
+            mix-blend-mode: exclusion;
+        }
+
+        .text-left {
+            align-self: flex-start;
+        }
+
+        .text-right {
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .accent {
+            color: #C1D4DE;
+            display: inline-block;
+        }
+
+        /* --- Gambar di Tengah (Absolute Center) --- */
+        .hero-center-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Menarik gambar tepat ke titik tengah layar */
+            width: 35vw; /* Lebar gambar responsif mengikuti layar laptop */
+            max-width: 450px;
+            height: 65vh; /* Gambar dibuat agak memanjang (portrait) */
+            z-index: 1; /* Berada di belakang teks */
+            opacity: 0.8;
+            pointer-events: none; /* Agar kursor tetap membaca teks di depannya */
+        }
+
+        .hero-center-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(110%); /* Tetap hitam putih agar tidak merusak palet warna gelap kita */
+        }
+
+        /* Efek Masking Radial (Ujung gambar memudar) */
+        .mask-radial {
+            -webkit-mask-image: radial-gradient(circle, black 40%, transparent 90%);
+            mask-image: radial-gradient(circle, black 40%, transparent 90%);
+        }
+
+        /* --- Elemen Pendukung Bawah --- */
+        .hero-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 1vw;
+            flex-wrap: wrap; 
+            gap: 40px;
+            position: relative;
+            z-index: 3; /* Deskripsi paling depan */
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            line-height: 1.2;
+            max-width: 500px;
+            color: #f4f4f0;
+            margin: 0;
+        }
+
+        .hero-tag {
+            font-size: 1rem;
+            color: #888;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Responsif Hero untuk HP --- */
+        @media (max-width: 768px) {
+            .hero-main-composition {
+                gap: 20vh; /* Jarak dijauhkan di HP agar gambar tidak terlalu tertutup teks */
+            }
+            .hero-center-image {
+                width: 80vw; /* Gambar dilebarkan di HP */
+                height: 50vh;
+            }
+            .hero-bottom {
+                flex-direction: column; /* Ditumpuk rata kiri */
+                align-items: flex-start;
+                gap: 15px;
+                margin-top: 50px;
+            }
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+/* --- Bagian Statistik --- */
+        .stats-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 80px 0 0 0; /* Jarak dari area hero di atasnya */
+            padding: 50px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Garis batas atas halus */
+            /* Kita hilangkan margin-top di marquee nanti agar jaraknya pas */
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1; /* Membuat setiap kolom punya lebar yang sama rata */
+            cursor: none; /* Menjaga custom cursor tetap bekerja */
+            transition: transform 0.3s ease;
+        }
+
+        /* Sedikit efek naik saat disorot */
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 600;
+            color: #f4f4f0;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.15); /* Garis pemisah vertikal transparan */
+        }
+
+        /* Responsif untuk layar HP */
+        @media (max-width: 768px) {
+            .stats-section {
+                flex-wrap: wrap; /* Mengizinkan elemen turun ke baris baru */
+                gap: 50px 0; /* Jarak vertikal antar elemen */
+                padding: 40px 0;
+            }
+            .stat-item {
+                flex: 1 1 40%; /* Mengubah layout menjadi 2 kolom (kiri-kanan) di HP */
+            }
+            .stat-divider {
+                display: none; /* Menyembunyikan garis vertikal di HP agar tidak berantakan */
+            }
+        }
+
+/* --- Running Text / Marquee --- */
+        .marquee-wrapper {
+            width: 100vw;
+            margin-left: -5vw; /* Menarik elemen agar membentang penuh melewati batas container */
+            background-color: #C1D4DE; /* Hijau cerah tapi tidak terlalu putih agar nyaman dipandang */
+            color: #0a0a0a;
+            padding: 25px 0;
+            overflow: hidden;
+            display: flex;
+            margin-top: 50px; /* Jarak dari hero section */
+            margin-bottom: 50px;
+        }
+
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            /* Durasi 20s. Semakin kecil angkanya, semakin cepat berjalannya */
+            animation: scrollMarquee 25s linear infinite; 
+        }
+
+        .marquee-content span {
+            font-size: 1.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-right: 15px; /* Jarak sebelum pengulangan teks berikutnya */
+            cursor: none; /* Menjaga konsistensi custom cursor */
+        }
+
+        /* Keyframes untuk membuat teks berjalan tanpa henti */
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Bergeser sejauh separuh konten */
+        }
+
+        /* Hentikan animasi saat kursor diarahkan ke teks (opsional, tapi interaktif) */
+        .marquee-wrapper:hover .marquee-content {
+            animation-play-state: paused;
+        }
+
+        /* --- About Me Section --- */
+        .about-section {
+            margin: 150px 0; /* Memberi ruang napas yang luas sebelum dan sesudah section ini */
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 4fr 6fr; /* Asimetris: 4 bagian untuk gambar, 6 bagian untuk teks */
+            gap: 6vw; /* Jarak antara gambar dan teks */
+            align-items: center; /* Memastikan teks berada di tengah gambar secara vertikal */
+        }
+
+        /* --- Sisi Kiri: Gambar --- */
+        .about-image-wrapper {
+            width: 100%;
+            height: 75vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(110%); /* Hitam putih default */
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+        }
+
+        /* Efek saat gambar disorot mouse: Sedikit zoom dan berubah jadi berwarna! */
+        .about-image-wrapper:hover .about-img {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        /* --- Sisi Kanan: Teks --- */
+        .about-quote {
+            font-size: clamp(2rem, 3.5vw, 3.5rem);
+            line-height: 1.1;
+            font-weight: 500;
+            letter-spacing: -1px;
+            color: #f4f4f0;
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+
+        .about-desc {
+            font-size: 1.1rem;
+            color: #888;
+            line-height: 1.7;
+            /*max-width: 550px;*/
+            margin-bottom: 50px;
+            text-align: justify;
+        }
+
+        /* --- Software Stack --- */
+        .software-title {
+            font-size: 0.8rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .software-list {
+            display: flex;
+            flex-wrap: wrap; /* Membiarkan elemen turun jika baris tidak cukup */
+            gap: 12px;
+        }
+
+        .software-pill {
+            padding: 10px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            transition: all 0.3s ease;
+            cursor: none; /* Konsisten dengan custom cursor */
+        }
+
+        /* Interaksi saat hover pada pill software */
+        .software-pill:hover {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            border-color: #f4f4f0;
+            transform: translateY(-3px);
+        }
+
+        /* --- Responsif untuk HP dan Tablet --- */
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr; /* Kolom jadi bertumpuk vertikal */
+                gap: 50px;
+            }
+            .about-image-wrapper {
+                height: 50vh; /* Gambar diperpendek agar tidak kepanjangan di HP */
+            }
+        }
+
+        /* Portofolio Asimetris */
+        .portfolio-title {
+            font-size: 4rem;
+            margin: 100px 0 50px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5vw;
+            margin-bottom: 150px;
+        }
+
+        .project-item {
+            position: relative;
+        }
+
+        /* Membuat layout asimetris dengan menggeser item genap */
+        .project-item:nth-child(even) {
+            margin-top: 150px; 
+        }
+
+        .project-img {
+            width: 100%;
+            height: 60vh;
+            background-color: #1a1a1a;
+            transition: transform 0.5s ease;
+        }
+
+        .project-item:hover .project-img {
+            transform: scale(0.95);
+        }
+
+        .project-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+        }
+
+        /* --- Footer --- */
+ /* --- Mega Footer ala Gambar --- */
+        footer {
+            padding: 100px 5vw 80px;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr; /* Membagi 2: Area kiri (kosong) lebih kecil, kanan (menu) lebih lebar */
+            gap: 5vw;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 100px;
+        }
+
+        .footer-menus {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 Kolom berjejer rata */
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #f4f4f0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #a0a0a0; /* Warna teks agak redup */
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            cursor: none; /* Wajib agar custom cursor kita tetap bekerja */
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #f4f4f0; /* Menjadi putih terang saat disorot */
+        }
+
+        /* Efek Animasi Panah Eksternal */
+        .ext-icon {
+            font-size: 0.85em;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-column ul li a:hover .ext-icon {
+            transform: translate(3px, -3px); /* Panah bergeser ke kanan atas saat hover */
+        }
+
+        /* --- Responsif Footer untuk Layar Kecil --- */
+        @media (max-width: 1024px) {
+            footer {
+                grid-template-columns: 1fr; /* Area kiri yang kosong hilang, menu memanjang penuh */
+            }
+            .footer-menus {
+                grid-template-columns: repeat(2, 1fr); /* Jadi 2 kolom di tablet */
+                gap: 50px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-menus {
+                grid-template-columns: 1fr; /* Tumpuk 1 kolom lurus ke bawah di HP */
+            }
+        }
+
+        /* --- Responsif Footer untuk HP --- */
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+            .social-links {
+                flex-wrap: wrap; /* Membiarkan tombol turun ke baris baru jika layar sempit */
+                justify-content: center;
+            }
+        }
+
+        /* Responsif untuk HP */
+        @media (max-width: 768px) {
+            .projects {
+                grid-template-columns: 1fr;
+            }
+            .project-item:nth-child(even) {
+                margin-top: 0;
+            }
+        }
+
+        /* --- Penyesuaian Grid Footer --- */
+        footer {
+            /* Mengubah rasio kiri 1 bagian, kanan 2.5 bagian agar menu tidak sempit */
+            grid-template-columns: 1fr 2.5fr; 
+        }
+
+        /* --- Styling Bagian Kiri (Logo & Sosmed) --- */
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo-large {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: #f4f4f0;
+            text-decoration: none;
+            margin-bottom: 15px;
+            cursor: none;
+        }
+
+        .footer-tagline {
+            color: #888;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .social-circle:hover {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            transform: translateY(-5px);
+            border-color: #f4f4f0;
+        }
+
+        /* --- Perbaikan Responsif --- */
+        @media (max-width: 1024px) {
+            footer {
+                grid-template-columns: 1fr; /* Kolom kiri dan kanan jadi bertumpuk atas-bawah */
+                gap: 60px;
+            }
+            .footer-left {
+                align-items: center;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 40px;
+            }
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #f4f4f0;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: none; /* Tetap menyembunyikan kursor bawaan */
+            
+            /* Animasi Muncul/Hilang */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Class untuk memunculkan tombol via JavaScript */
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Efek saat disorot */
+        #backToTop:hover {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            border-color: #f4f4f0;
+        }
+
+        /* Responsif untuk HP agar tidak terlalu menutupi layar */
+        @media (max-width: 768px) {
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
