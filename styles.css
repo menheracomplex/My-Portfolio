@@ -595,13 +595,15 @@
             animation: scrollMarquee 25s linear infinite; 
         }
 
-        .marquee-content span {
-            font-size: 1.5rem;
+.marquee-content span {
+            /* Teks akan berukuran 1rem di HP, dan perlahan membesar maksimal 1.5rem di layar laptop */
+            font-size: clamp(1rem, 2.5vw, 1.5rem); 
+            
             font-weight: 300;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding-right: 15px; /* Jarak sebelum pengulangan teks berikutnya */
-            cursor: none; /* Menjaga konsistensi custom cursor */
+            padding-right: 15px; 
+            cursor: none; 
         }
 
         /* Keyframes untuk membuat teks berjalan tanpa henti */
