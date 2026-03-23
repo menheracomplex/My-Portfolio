@@ -332,7 +332,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 20px; /* Jarak ke teks "Hi, there" di bawahnya */
-            align-self: flex-start; /* Memastikan pill tetap di kiri */
+            align-self: center; /* Memastikan pill tetap di kiri */
             cursor: none; /* Menjaga custom cursor bekerja */
             position: relative;
             z-index: 3; /* Memastikan bisa diklik/disorot di atas gambar */
