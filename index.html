@@ -11,6 +11,16 @@
     <!-- Custom Cursor -->
     <div class="cursor"></div>
 
+<div id="hero-follower">
+        <span class="follower-label">For straight away commission.</span>
+        
+        <div class="follower-btn">LET ME IN!!!</div>
+    </div>
+
+<div id="loader" class="loader-wrapper">
+        <h1 class="loader-text">Glad you're here! <span class="kaomoji">(/≧▽≦)/</span></h1>
+    </div>
+
     <div class="container">
 <header class="reveal">
         <a href="#" class="logo hover-target">@RUMIGNG</a>
@@ -23,8 +33,9 @@
 <nav class="nav-links" id="navLinks">
             <a href="#" class="hover-target">Home</a>
             <a href="#" class="hover-target">Commissions</a>
+            <a href="#" class="hover-target">Terms & Conditions</a>
             <a href="#" class="hover-target">Portfolio</a>
-            <a href="#" class="hover-target">Shop</a>
+            <a href="#" id="shopBtn" class="hover-target">Shop & Support</a>
             <a href="#about" class="hover-target">About Me</a>
             
             <button id="connectBtn" class="btn-connect hover-target">Let's Connect</button>
@@ -32,10 +43,18 @@
     </header>
 
     <section class="hero reveal">
-            <!-- --- Status Pill Baru --- -->
-            <div class="status-pill hover-target">
-                <span class="status-text">Commission Status</span>
-                <span class="status-badge">CLOSED</span>
+<div class="hero-top-bar">
+                
+                <div class="status-pill hover-target">
+                    <span class="status-text">Commission Status</span>
+                    <span class="status-badge">CLOSED</span>
+                </div>
+                
+                <div class="time-pill hover-target">
+                    <span class="time-location">GMT+7</span>
+                    <span class="time-badge"><span id="realTime">Memuat...</span></span>
+                </div>
+                
             </div>
             
             <div class="hero-main-composition">
@@ -91,38 +110,85 @@
         </div>
 
 <!-- --- About Me Section --- -->
-        <section class="about-section reveal" id="about">
+<section class="about-section reveal" id="about">
             <div class="about-grid">
                 
-                <!-- Sisi Kiri: Gambar -->
-                <div class="about-image-wrapper hover-target">
-                    <!-- Gunakan fotomu di sini nanti -->
-                    <img src="channels4_banner.jpg" alt="Rumi Portrait" class="about-img">
+<div class="about-left-side">
+                    <div class="about-image-wrapper hover-target" id="aboutImage">
+                        <img src="channels4_banner.jpg" alt="Rumi Portrait" class="about-img">
+                        
+                        <div class="hover-prompt">D-don't touch me, plss~ (>///<)</div>
+                    </div>
+                    <p class="art-credit">Art by @someone (X)</p>
                 </div>
 
-                <!-- Sisi Kanan: Teks & Software -->
                 <div class="about-content">
                     <h2 class="about-quote">"Membangun identitas visual yang tidak hanya indah, tapi juga bercerita dan terkoneksi dengan audiens."</h2>
                     
-                    <p class="about-desc">
-                        Halo! Aku Rumi, desainer grafis spesialis kebutuhan VTuber dan kreator konten. Berawal dari kecintaan pada kultur pop dan seni digital, aku mendedikasikan keterampilanku untuk membantu para kreator mewujudkan persona virtual mereka. Dari overlay streaming yang fungsional hingga desain logo yang ikonik, aku selalu berusaha menyeimbangkan estetika dan fungsi dalam setiap karyaku.
+<p class="about-desc">
+                        Halo! Aku <span class="highlight-name">Rumi</span> <span class="pronouns">(he/him)</span>, desainer grafis spesialis kebutuhan VTuber dan kreator konten. Berawal dari kecintaan pada kultur pop dan seni digital, aku mendedikasikan keterampilanku untuk membantu para kreator mewujudkan persona virtual mereka. Dari overlay streaming yang fungsional hingga desain logo yang ikonik, aku selalu berusaha menyeimbangkan estetika dan fungsi dalam setiap karyaku.
                     </p>
 
-                    <div class="software-stack">
+<div class="software-stack">
                         <h3 class="software-title">SOFTWARE</h3>
                         <div class="software-list">
-                            <span class="software-pill hover-target">Adobe Illustrator</span>
-                            <span class="software-pill hover-target">Photoshop</span>
-                            <span class="software-pill hover-target">After Effects</span>
-                            <span class="software-pill hover-target">Premiere Pro</span>
+                            <span class="software-pill hover-target">
+                                <span class="software-icon">
+                                    <img src="https://source.unsplash.com/random/100x100/?logo,dark" alt="Ai">
+                                </span>
+                                Adobe Illustrator
+                            </span>
+                            
+                            <span class="software-pill hover-target">
+                                <span class="software-icon">
+                                    <img src="https://source.unsplash.com/random/100x100/?icon,dark" alt="Ps">
+                                </span>
+                                Photoshop
+                            </span>
+                            
+                            <span class="software-pill hover-target">
+                                <span class="software-icon">
+                                    <img src="https://source.unsplash.com/random/100x100/?abstract,dark" alt="Ae">
+                                </span>
+                                After Effects
+                            </span>
+                            
+                            <span class="software-pill hover-target">
+                                <span class="software-icon">
+                                    <img src="https://source.unsplash.com/random/100x100/?technology,dark" alt="Pr">
+                                </span>
+                                Premiere Pro
+                            </span>
                         </div>
                     </div>
-                </div>
+
+<div class="software-stack" style="margin-top: 25px;">
+                        <h3 class="software-title">SKILLS</h3>
+                        <div class="software-list">
+                            <span class="skill-pill hover-target">Graphic Design</span>
+                            <span class="skill-pill hover-target">Branding</span>
+                            <span class="skill-pill hover-target">Video Editing</span>
+                            <span class="skill-pill hover-target">Illustration</span>
+                            <span class="skill-pill hover-target">etc.</span>
+                        </div>
+                    </div>
+
+<div class="about-action-area">
+                        
+                        <span class="typing-wrapper">
+                            <span id="typewriter"></span><span class="blinking-cursor">|</span>
+                        </span>
+
+                        <a href="#" class="btn-learn-more hover-target">
+                            Learn more about me! <span class="ext-icon">↗</span>
+                        </a>
+                        
+                    </div>
                 
             </div>
         </section>
 
-        <h2 class="portfolio-title reveal">Karya Pilihan</h2>
+        <h2 class="portfolio-title reveal">Selected Projects</h2>
 
         <section class="projects">
             <div class="project-item reveal">
@@ -154,6 +220,81 @@
                 </div>
             </div>
         </section>
+        <div class="see-more-wrapper reveal">
+            <a href="#" class="btn-see-more hover-target">
+                See more works <span class="ext-icon">↗</span>
+            </a>
+        </div>
+
+        <section class="faq-section reveal">
+            <div class="faq-header">
+                <p class="faq-subtitle">— FAQs</p>
+                <h2 class="faq-title">Questions? <span class="accent">Look here.</span></h2>
+            </div>
+            
+            <div class="faq-accordion">
+                
+                <div class="faq-item hover-target">
+                    <div class="faq-question">
+                        <span>What services do you offer for VTubers?</span>
+                        <div class="faq-icon"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>I offer a wide range of services including logo design, stream overlays, character sheets, debut slides, and promotional assets specifically tailored for VTubers and content creators.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item hover-target">
+                    <div class="faq-question">
+                        <span>Can I get a custom package instead of individual items?</span>
+                        <div class="faq-icon"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! You can mix and match the services you need. We can discuss your requirements and I'll create a customized bundle tailored specifically to your channel's branding.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item hover-target">
+                    <div class="faq-question">
+                        <span>What is the typical turnaround time for a project?</span>
+                        <div class="faq-icon"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The timeline depends on the complexity of the project. A standard stream overlay package usually takes 1-2 weeks, while a full branding suite might take up to 4 weeks. I will provide a clear timeline during our initial consultation.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item hover-target">
+                    <div class="faq-question">
+                        <span>What tools do you use for your design work?</span>
+                        <div class="faq-icon"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>My primary tools are Adobe Illustrator for vector work (like logos), Photoshop for raster and texturing, and After Effects for animated stream elements (stinger transitions, animated screens).</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="cta-section reveal">
+            <div class="cta-box">
+                
+                <div class="cta-image hover-target">
+                    <img src="https://source.unsplash.com/random/600x600/?abstract,dark" alt="Mari Berkolaborasi">
+                </div>
+                
+                <div class="cta-text">
+                    <h2 class="cta-title">Ready to bring your<br>virtual persona to life?</h2>
+                    <p class="cta-desc">Mari berkolaborasi menciptakan identitas visual yang unik dan profesional untuk channel VTuber-mu. Lihat detail layanan, proses kerja, dan harga komisiku di sini.</p>
+                    
+                    <a href="#" class="cta-btn hover-target">
+                        Commissions <span class="ext-icon">↗</span>
+                    </a>
+                </div>
+                
+            </div>
+        </section>
     </div>
 
     <footer>
@@ -174,43 +315,33 @@
         <!-- Bagian Kanan: Menu Grid (Tetap sama seperti sebelumnya) -->
         <div class="footer-menus">
             <div class="footer-column">
-                <h3>Products</h3>
+                <h3>Menu</h3>
                 <ul>
-                    <li><a href="#" class="hover-target">Get Affinity</a></li>
-                    <li><a href="#" class="hover-target">Graphic design</a></li>
-                    <li><a href="#" class="hover-target">Photo editing</a></li>
-                    <li><a href="#" class="hover-target">Page layout</a></li>
-                    <li><a href="#" class="hover-target">Canva integrations</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Discover</h3>
-                <ul>
-                    <li><a href="#" class="hover-target">Inspire blog</a></li>
-                    <li><a href="#" class="hover-target">Press <span class="ext-icon">↗</span></a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Help</h3>
-                <ul>
-                    <li><a href="#" class="hover-target">Help Center</a></li>
-                    <li><a href="#" class="hover-target">Affinity V2 <span class="ext-icon">↗</span></a></li>
-                    <li><a href="#" class="hover-target">Affinity V2 account <span class="ext-icon">↗</span></a></li>
-                    <li><a href="#" class="hover-target">March 2026 update</a></li>
+                    <li><a href="#" class="hover-target">Home</a></li>
+                    <li><a href="#" class="hover-target">Commissions</a></li>
+                    <li><a href="#" class="hover-target">Terms of Service</a></li>
+                    <li><a href="#" class="hover-target">Portfolio</a></li>
+                    <li><a href="#" class="hover-target">Shop</a></li>
                 </ul>
             </div>
             
             <div class="footer-column">
                 <h3>Connect</h3>
                 <ul>
-                    <li><a href="#" class="hover-target">About</a></li>
-                    <li><a href="#" class="hover-target">Careers <span class="ext-icon">↗</span></a></li>
-                    <li><a href="#" class="hover-target">Contact Sales <span class="ext-icon">↗</span></a></li>
+                    <li><a href="#" class="hover-target">About Me</a></li>
+                    <li><a href="#" class="hover-target">Behance<span class="ext-icon">↗</span></a></li>
+                    <li><a href="#" class="hover-target">LinkedIn<span class="ext-icon">↗</span></a></li>
                 </ul>
             </div>
         </div>
+    </footer>
+    <div class="footer-menus">
+            </div>
+
+        <div class="footer-bottom">
+            <p>Built with love in Indonesia &copy;rumigng 2026</p>
+        </div>
+
     </footer>
     </footer>
 
@@ -222,21 +353,101 @@
             <p class="modal-desc">Punya proyek menarik atau butuh desain identitas untuk channel VTuber-mu? Jangan ragu untuk menyapaku lewat platform di bawah ini.</p>
             
             <div class="modal-socials">
-                <a href="#" class="social-pill hover-target">Ig: @handle_ig_kamu</a>
-                <a href="#" class="social-pill hover-target">X: @handle_x_kamu</a>
-                <a href="#" class="social-pill hover-target">Discord: handle_discord</a>
+                <a href="#" class="social-pill hover-target">Instagram</a>
+                <a href="#" class="social-pill hover-target">Facebook</a>
+                <a href="#" class="social-pill hover-target">X (formerly Twitter)</a>
+                <a href="#" class="social-pill hover-target">Discord</a>
+                <a href="#" class="social-pill hover-target">VGen</a>
             </div>
             
             <div class="modal-email-section">
-                <p>Atau kirimkan pesan langsung via email:</p>
-                <a href="mailto:emailkamu@domain.com" class="email-btn hover-target">Kirim Email ↗</a>
+                <p>Atau kirimkan pesan langsung via email:<br>34altixiya@gmail.com</p>
+                <a href="mailto:34altixiya@gmail.com" class="email-btn hover-target">Kirim Email ↗</a>
+            </div>
+        </div>
+    </div>
+
+<div id="shopModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 600px;"> <button id="closeShopModal" class="close-btn hover-target">&times;</button>
+            
+            <h2 class="modal-title">Pilih Regional</h2>
+            <p class="modal-desc">Silakan pilih destinasi toko yang sesuai dengan lokasimu untuk penyesuaian metode pembayaran dan pengiriman.</p>
+            
+            <div class="shop-grid">
+                
+                <div class="shop-card">
+                    <div class="shop-image hover-target">
+                        <img src="https://source.unsplash.com/random/400x400/?indonesia,merchandise" alt="Toko Lokal">
+                    </div>
+                    <a href="https://trakteer.id/rumigng" class="shop-btn-primary hover-target" target="_blank">Shop — Local ↗</a>
+                </div>
+                
+                <div class="shop-card">
+                    <div class="shop-image hover-target">
+                        <img src="https://source.unsplash.com/random/400x400/?global,merchandise" alt="International Shop">
+                    </div>
+                    <a href="https://ko-fi.com/rumigoreng" class="shop-btn-secondary hover-target" target="_blank">Shop — International ↗</a>
+                </div>
+                
             </div>
         </div>
     </div>
 
 <button id="backToTop" class="hover-target">↑</button>
-
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
+        // --- Mesin Momentum Scroll (Lenis) ---
+        const lenis = new Lenis({
+            duration: 1.2, // Kecepatan luncuran (semakin besar semakin lambat/halus)
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Gaya gesekan ala Awwwards
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1, // Sensitivitas roda mouse
+            smoothTouch: false, // Dimatikan di HP agar sentuhan jari tetap natural
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        // Mengintegrasikan Lenis dengan animasi Scroll Reveal kita
+        lenis.on('scroll', (e) => {
+            // Ini akan membuat animasi scroll-mu semakin akurat
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // --- Logika Real-Time Clock (Pill Waktu Indonesia) ---
+        function updateIndonesianTime() {
+            const timeEl = document.getElementById('realTime');
+            if (!timeEl) return;
+
+            const now = new Date();
+            
+            // Format Hari (Contoh: Senin)
+            const dayFormatter = new Intl.DateTimeFormat('id-ID', { timeZone: 'Asia/Jakarta', weekday: 'long' });
+            const dayStr = dayFormatter.format(now);
+            
+            // Format Tanggal (Contoh: 24 Mar)
+            const dateFormatter = new Intl.DateTimeFormat('id-ID', { timeZone: 'Asia/Jakarta', day: '2-digit', month: 'short' });
+            const dateStr = dateFormatter.format(now);
+            
+            // Format Jam (Contoh: 10:25 AM) - Memakai format 12 jam (AM/PM) sesuai permintaan
+            const timeFormatter = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: true });
+            const timeStr = timeFormatter.format(now);
+            
+            // Menyusun hasil akhir: "Senin/24 Mar, 10:25 AM"
+            timeEl.textContent = `${dayStr}/${dateStr}, ${timeStr}`;
+        }
+
+        // Perbarui jam setiap 1 detik
+        setInterval(updateIndonesianTime, 1000);
+        updateIndonesianTime(); // Panggil sekali langsung agar tidak menunggu 1 detik saat web dibuka
+
         // Logika Custom Cursor
         const cursor = document.querySelector('.cursor');
         const hoverTargets = document.querySelectorAll('.hover-target, .logo, h1');
@@ -340,11 +551,198 @@
             });
         });
 
-        // --- Paksa web selalu mulai dari paling atas saat di-refresh ---
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
+        // --- Logika Pop-up Modal (Shop Selection) ---
+        const shopBtn = document.getElementById('shopBtn');
+        const shopModal = document.getElementById('shopModal');
+        const closeShopModal = document.getElementById('closeShopModal');
+
+        // Fungsi Buka Modal Shop
+        shopBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Mencegah halaman melompat ke atas
+            shopModal.classList.add('active');
+        });
+
+        // Fungsi Tutup Modal via Tombol Silang (X)
+        closeShopModal.addEventListener('click', () => {
+            shopModal.classList.remove('active');
+        });
+
+        // Fungsi Tutup Modal jika area luar kotak (hitam transparan) diklik
+        window.addEventListener('click', (e) => {
+            if (e.target === shopModal) {
+                shopModal.classList.remove('active');
+            }
+        });
+
+        // --- Logika FAQ Accordion ---
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Mengecek apakah item yang diklik sudah aktif
+                const isActive = item.classList.contains('active');
+                
+                // (Opsional) Menutup semua FAQ yang sedang terbuka sebelum membuka yang baru
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+
+                // Jika item yang diklik sebelumnya belum aktif, maka buka
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+// --- Logika Loading Screen & Reveal Awal ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            
+            // Beri waktu 1.5 detik agar user bisa membaca teks "Glad you're here!"
+            setTimeout(() => {
+                // 1. Angkat layar loading ke atas
+                loader.classList.add('hidden');
+                
+                // 2. Tunggu sebentar (0.5 detik) sampai layar agak terbuka, 
+                // lalu jalankan animasi turunnya Navbar dan naiknya teks Hero
+                setTimeout(() => {
+                    document.querySelectorAll('.hero, header').forEach(el => el.classList.add('active'));
+                }, 500);
+                
+            }, 1500); 
+        });
+
+// --- Logika Floating Cursor CTA (Hero Section) ---
+        const heroFollower = document.getElementById('hero-follower');
+        const heroSection = document.querySelector('.hero');
+
+        // Mengirim koordinat kursor ke CSS Variable (--x dan --y)
+        heroSection.addEventListener('mousemove', (e) => {
+            heroFollower.style.setProperty('--x', e.clientX + 'px');
+            heroFollower.style.setProperty('--y', e.clientY + 'px');
+        });
+
+        // Munculkan tombol saat masuk Hero Section 
+        heroSection.addEventListener('mouseenter', () => {
+            heroFollower.classList.add('active');
+        });
+
+        // Sembunyikan tombol saat keluar dari Hero Section
+        heroSection.addEventListener('mouseleave', () => {
+            heroFollower.classList.remove('active');
+        });
+
+// Fungsi klik di area Hero
+        heroSection.addEventListener('click', (e) => {
+            // 1. Abaikan klik jika yang diklik adalah tulisan "Commission Status"
+            if (e.target.closest('.status-pill')) return;
+            
+            // HAPUS BARIS INI:
+            // window.location.href = '...'; 
+            
+            // GANTI DENGAN BARIS INI:
+            // Memanggil pop-up Let's Connect agar muncul
+            const connectModal = document.getElementById('connectModal');
+            connectModal.classList.add('active');
+        });
+
+// --- Logika Floating Pill Navbar & Top Bar Status ---
+        const header = document.querySelector('header');
+        const heroTopBar = document.querySelector('.hero-top-bar');
+
+        window.addEventListener('scroll', () => {
+            // Jika di-scroll lebih dari 80px ke bawah
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled'); // Ubah navbar jadi pill
+                if (heroTopBar) heroTopBar.classList.add('floating'); // Tarik status ke tengah
+            } else {
+                // Jika kembali ke puncak (Hero Section)
+                header.classList.remove('scrolled');
+                if (heroTopBar) heroTopBar.classList.remove('floating');
+            }
+        });
+
+        // --- Logika Typing Animation (About Me) ---
+        const typewriterElement = document.getElementById('typewriter');
+        
+        // Daftar kalimat yang akan diketik bergantian
+        const phrases = [
+            "Penasaran musik kesukaanku? Klik disini!",
+            "Penasaran perjalanan commis-ku? Klik disini!",
+            "Pengen kenal aku lebih deket? Klik disini!",
+            "Penasaran game kesukaanku? Klik disini!"
+        ];
+        
+        let currentPhraseIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 70; // Kecepatan ngetik standar (ms)
+
+        function typeEffect() {
+            const currentPhrase = phrases[currentPhraseIndex];
+            
+            if (isDeleting) {
+                // Proses menghapus karakter satu per satu dari belakang
+                typewriterElement.textContent = currentPhrase.substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+                typingSpeed = 30; // Kecepatan menghapus (lebih cepat dari ngetik)
+            } else {
+                // Proses mengetik karakter satu per satu
+                typewriterElement.textContent = currentPhrase.substring(0, currentCharIndex + 1);
+                currentCharIndex++;
+                typingSpeed = 70; // Normal ngetik
+            }
+
+            // Logika pergantian status (Ngetik -> Jeda -> Hapus -> Ganti Kalimat)
+            if (!isDeleting && currentCharIndex === currentPhrase.length) {
+                // Selesai ngetik satu kalimat, jeda 2.5 detik agar pengunjung sempat membaca
+                isDeleting = true;
+                typingSpeed = 2500; 
+            } else if (isDeleting && currentCharIndex === 0) {
+                // Selesai menghapus sampai habis, pindah ke kalimat berikutnya
+                isDeleting = false;
+                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                typingSpeed = 500; // Jeda setengah detik sebelum mulai ngetik kalimat baru
+            }
+
+            // Panggil fungsi ini lagi secara berulang (Looping)
+            setTimeout(typeEffect, typingSpeed);
         }
-        window.scrollTo(0, 0);
+
+        // Mulai jalankan animasi mesin ketiknya setelah web dimuat
+        setTimeout(typeEffect, 1500);
+
+        // --- Logika Interaksi Gambar About Me (Klik memunculkan hati) ---
+        const aboutImageWrapper = document.getElementById('aboutImage');
+
+        if (aboutImageWrapper) {
+            aboutImageWrapper.addEventListener('click', (e) => {
+                // Mendapatkan koordinat klik relatif terhadap posisi kotak gambar
+                const rect = aboutImageWrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                // Membuat elemen <span> baru untuk simbol hati
+                const heart = document.createElement('span');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤';
+                
+                // Meletakkan hati tepat di koordinat ujung kursor saat diklik
+                heart.style.left = `${x}px`;
+                heart.style.top = `${y}px`;
+
+                // Memasukkan hati ke dalam kotak gambar
+                aboutImageWrapper.appendChild(heart);
+
+                // Membersihkan/menghapus elemen hati dari HTML setelah animasinya selesai (1 detik)
+                // Ini penting agar web tidak berat/lag jika pengunjung mengeklik ratusan kali
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000);
+            });
+        }
     </script>
 </body>
 </html>

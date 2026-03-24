@@ -1,3 +1,5 @@
+        @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pixelify+Sans:wght@400..700&display=swap');
+
         /* Reset & Base */
         * {
             margin: 0;
@@ -7,7 +9,7 @@
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #0a0a0a;
             color: #f4f4f0;
             overflow-x: hidden;
@@ -17,6 +19,11 @@
             background-size: 80px 80px; /* Ukuran kotak grid, bisa kamu perbesar/perkecil */
             background-position: center center;
             background-attachment: fixed; /* Grid tetap diam di tempat saat web di-scroll */
+        }
+
+        h2 {
+            font-family: 'Climate Crisis', sans-serif;
+            font-weight: 400 !important;
         }
 
         /* Custom Cursor */
@@ -39,37 +46,183 @@
             background-color: #f4f4f0;
         }
 
+
+/* --- Loading Screen (Preloader) --- */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0a0a0a; /* Hitam pekat menutupi seluruh layar */
+            z-index: 9998; /* Berada di bawah custom cursor (9999) agar kursor tetap terlihat! */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: none;
+            
+            /* Animasi transisi saat loader dihilangkan */
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .loader-text {
+            color: #f4f4f0;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 500;
+            letter-spacing: -1px;
+            
+            /* Animasi masuk berkedip halus */
+            animation: pulseText 2s infinite ease-in-out;
+        }
+
+        .kaomoji {
+            color: #E25E3A; /* Warna oranye agar lebih pop! */
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        /* Class yang akan ditambahkan oleh JavaScript untuk mengangkat layar loading */
+        .loader-wrapper.hidden {
+            transform: translateY(-100vh); /* Meluncur ke atas layar */
+            pointer-events: none;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+/* --- Floating Cursor CTA (Hero Section) --- */
+/* --- Floating Cursor CTA (Hero Section) --- */
+        #hero-follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            /* Menggunakan CSS Variable (--x dan --y) untuk pergerakan 3D yang diproses oleh GPU */
+            transform: translate3d(calc(var(--x, 0px) - 50%), calc(var(--y, 0px) - 50%), 0) scale(0);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9998;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            
+            /* Memberi tahu browser untuk bersiap memproses animasi ini dengan GPU */
+            will-change: transform;
+            
+            /* Durasi 0.3s ease-out akan memberikan efek 'terseret' / momentum yang sangat empuk */
+            transition: transform 0.3s ease-out, opacity 0.4s ease;
+        }
+
+        #hero-follower.active {
+            /* Saat aktif, ukurannya membesar jadi 1, sementara posisinya terus mengikuti kursor secara dinamis */
+            transform: translate3d(calc(var(--x, 0px) - 50%), calc(var(--y, 0px) - 50%), 0) scale(1);
+            opacity: 1;
+        }
+
+        /* (Bagian .follower-label dan .follower-btn biarkan saja, tidak perlu diubah) */
+
+        .follower-label {
+            font-size: 0.85rem;
+            color: #f4f4f0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            white-space: nowrap; /* Mencegah teks terpotong ke bawah */
+            
+            /* --- Shadow Halus --- */
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .follower-btn {
+            background-color: #30343c;
+            color: #f4f4f0;
+            padding: 20px 35px;
+            border-radius: 100px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .follower-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
         /* Layout Dasar */
         .container {
             padding: 0 5vw;
         }
 
-        /* Navigasi */
+/* --- Navigasi (Modifikasi Default) --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            
-            /* --- Sticky Positioning --- */
             position: sticky;
             top: 0;
-            z-index: 999;
+            z-index: 1999; 
             
-            /* --- Efek Glassmorphism (Blur) --- */
-            /*background-color: rgba(10, 10, 10, 0.6); /* Warna latar hitam dengan transparansi 60% */
-            backdrop-filter: blur(12px); /* Efek blur di belakang navbar */
-            -webkit-backdrop-filter: blur(12px); /* Dukungan untuk browser Safari */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             
-            /* --- Styling & Full Width Trick --- */
-            padding: 25px 5vw; /* Padding disesuaikan agar rapi */
-            margin-left: -5vw; /* Menarik navbar ke ujung kiri layar */
-            margin-right: -5vw; /* Menarik navbar ke ujung kanan layar */
-            /*border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Garis bawah transparan tipis sebagai pembatas */
+            /* --- KUNCI ANIMASI SMOOTH: Base State --- */
+            padding: 25px 5vw;
+            margin-left: -5vw;
+            margin-right: -5vw;
+            
+            border-radius: 0px; /* Sudut awal lancip */
+            background-color: rgba(15, 15, 15, 0); /* Latar awal transparan */
+            border: 1px solid rgba(255, 255, 255, 0); /* Garis awal transparan */
+            
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- Floating Pill Navbar (Saat Di-scroll) --- */
+        header.scrolled {
+            top: 20px; 
+            
+            /* Kita ganti margin:auto dan max-content dengan nilai pasti (vw) 
+               agar CSS bisa menghitung animasinya dengan sangat mulus */
+            margin-left: 2vw; 
+            margin-right: 2vw;
+            
+            padding: 12px 35px;
+            border-radius: 50px; /* Berubah membulat jadi kapsul */
+            
+            background-color: rgba(15, 15, 15, 0.75); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); 
+        }
+
+        /* Efek Perubahan Warna Teks Otomatis */
+        header.scrolled .logo,
+        header.scrolled nav.nav-links a {
+            mix-blend-mode: exclusion;
+        }
+
+        header.scrolled .btn-connect {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsif Pill untuk HP --- */
+        @media (max-width: 992px) {
+            header.scrolled {
+                margin-left: 0; /* Di layar HP dibiarkan penuh saja karena layarnya sempit */
+                margin-right: 0;
+                padding: 12px 25px;
+            }
         }
 
         .logo {
+            font-family: 'pixelify sans', sans-serif;
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 400;
             text-transform: uppercase;
             text-decoration: none;
             color: white;
@@ -230,7 +383,7 @@
             gap: 10px;
             width: 100%;
             padding: 16px 0;
-            background-color: #E25E3A; /* Tombol oranye mencolok */
+            background-color: #30343c; /* Tombol oranye mencolok */
             color: #f4f4f0;
             text-decoration: none;
             border-radius: 50px;
@@ -238,10 +391,106 @@
             font-size: 1rem;
             transition: background-color 0.3s ease;
             cursor: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .email-btn:hover {
+            background-color: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+/* --- Gaya Baru untuk Pop-up Shop (Grid Kartu) --- */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Membagi menjadi 2 kolom sama besar */
+            gap: 25px; /* Jarak antar kartu */
+            margin-top: 30px;
+        }
+
+        .shop-card {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Jarak antara gambar kotak dan tombol di bawahnya */
+        }
+
+        /* Membuat Gambar Menjadi Presisi Kotak (Square) */
+        .shop-image {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Trik modern membuat elemen menjadi kotak sempurna */
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .shop-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(110%); /* Mempertahankan tema dark mode (hitam putih) */
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+        }
+
+        /* Saat area gambar disorot, gambar membesar dan berubah jadi berwarna */
+        .shop-image:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        /* Tombol Toko Lokal (Oranye) */
+        .shop-btn-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 0;
+            background-color: #E25E3A;
+            color: #f4f4f0;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.3s ease;
+            cursor: none;
+        }
+
+        .shop-btn-primary:hover {
             background-color: #c94d2b;
+        }
+
+        /* Tombol Toko Internasional (Garis Transparan) */
+        .shop-btn-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 0;
+            background-color: transparent;
+            color: #f4f4f0;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .shop-btn-secondary:hover {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            border-color: #f4f4f0;
+        }
+
+        /* Responsif untuk Layar HP */
+        @media (max-width: 576px) {
+            .shop-grid {
+                grid-template-columns: 1fr; /* Kolom jadi bertumpuk atas-bawah di HP */
+                gap: 30px;
+            }
+            .shop-image {
+                /* Sedikit memendekkan gambar agar tidak memakan terlalu banyak ruang di layar HP */
+                aspect-ratio: 4 / 3; 
+            }
         }
 
 /* --- Gaya Dasar Hamburger (Disembunyikan di Laptop) --- */
@@ -319,40 +568,79 @@
 
         /* Hero Section */
 /* --- Hero Section (Komposisi Tengah) --- */
-/* --- Commission Status Pill --- */
-        .status-pill {
+/* --- Hero Top Bar (Menampung Pill Status & Time) --- */
+.hero-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+            
+            /* Z-index ditinggikan agar saat melayang tidak tertutup elemen lain */
+            z-index: 1998; 
+            
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Desain dasar yang dipakai bersama oleh kedua Pill */
+        .status-pill, .time-pill {
             display: inline-flex;
             align-items: center;
-            gap: 12px; /* Jarak antara teks status dan CLOSED */
+            gap: 12px;
             padding: 8px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2); /* Stroke putih transparan agar elegan */
-            border-radius: 50px; /* Membuat bentuk pill/kapsul */
-            background-color: #0a0a0a; /* Warna dominan latar web */
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            border-radius: 50px; 
+            background-color: #0a0a0a; 
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 20px; /* Jarak ke teks "Hi, there" di bawahnya */
-            align-self: center; /* Memastikan pill tetap di kiri */
-            cursor: none; /* Menjaga custom cursor bekerja */
-            position: relative;
-            z-index: 3; /* Memastikan bisa diklik/disorot di atas gambar */
+            cursor: none; 
         }
 
+.hero-top-bar.floating {
+            position: fixed;
+            top: 95px; /* Menggantung pas di bawah floating navbar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: max-content; /* Menyusut memeluk ukuran 2 pill */
+            justify-content: center;
+            gap: 5px; /* Mendekatkan kedua pill */
+            margin-bottom: 0;
+            
+            /* Membungkus keduanya dalam satu kapsul kaca gelap yang elegan */
+            background-color: rgba(15, 15, 15, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 6px 15px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Menghilangkan garis luar pill asli agar menyatu halus ke dalam kapsul kaca baru */
+        .hero-top-bar.floating .status-pill,
+        .hero-top-bar.floating .time-pill {
+            background-color: transparent;
+            border-color: transparent;
+            padding: 4px 10px;
+        }
+
+        /* --- Pill Kiri (Commission Status - Merah) --- */
         .status-text {
             color: #f4f4f0;
-            opacity: 0.7; /* Sedikit diredupkan agar fokus ke tulisan CLOSED */
+            opacity: 0.7;
             font-weight: 500;
         }
 
         .status-badge {
-            color: #F06767; /* Merah sesuai permintaanmu */
+            color: #F06767;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
- /* Lampu indikator merah menyala dengan efek kedip */
         .status-badge::before {
             content: '';
             display: inline-block;
@@ -360,23 +648,65 @@
             height: 6px;
             background-color: #F06767;
             border-radius: 50%;
-            /* Memanggil animasi bernama 'pulse' dengan durasi 1.5 detik, berulang terus (infinite) */
             animation: pulse-red 1.5s infinite ease-in-out; 
         }
 
-        /* --- Animasi Keyframes untuk Kedip (Pulse) --- */
         @keyframes pulse-red {
-            0% {
-                opacity: 1;
-                box-shadow: 0 0 8px rgba(240, 103, 103, 0.8);
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(240, 103, 103, 0.8); }
+            50% { opacity: 0.3; box-shadow: 0 0 2px rgba(240, 103, 103, 0.2); }
+        }
+
+        /* --- Pill Kanan (Local Time - Biru) --- */
+        .time-location {
+            color: #f4f4f0;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        .time-badge {
+            color: #5E92F3; /* Biru terang tapi kalem (tidak mencolok/putih silau) */
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-badge::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #5E92F3;
+            border-radius: 50%;
+            animation: pulse-blue 1.5s infinite ease-in-out; 
+        }
+
+        @keyframes pulse-blue {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(94, 146, 243, 0.8); }
+            50% { opacity: 0.3; box-shadow: 0 0 2px rgba(94, 146, 243, 0.2); }
+        }
+
+/* --- Responsif Top Bar untuk Layar Kecil (HP) --- */
+        @media (max-width: 576px) {
+            .hero-top-bar {
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 15px;
             }
-            50% {
-                opacity: 0.3; /* Meredup di tengah animasi */
-                box-shadow: 0 0 2px rgba(240, 103, 103, 0.2); /* Cahaya glow mengecil */
+            
+            /* Saat melayang di HP, paksa jadi satu baris dan hemat ruang */
+            .hero-top-bar.floating {
+                flex-direction: row;
+                align-items: center;
+                gap: 0px;
+                top: 80px; /* Disesuaikan dengan ukuran navbar HP */
+                transform: translateX(-50%) scale(0.9); /* Sedikit dikecilkan */
             }
-            100% {
-                opacity: 1;
-                box-shadow: 0 0 8px rgba(240, 103, 103, 0.8);
+            
+            /* Sembunyikan teks label di HP agar kapsulnya tidak memakan seluruh lebar layar */
+            .hero-top-bar.floating .status-text,
+            .hero-top-bar.floating .time-location {
+                display: none; 
             }
         }
         .hero {
@@ -401,10 +731,11 @@
 
         /* --- Tipografi --- */
         .hero-title {
+            font-family: 'Climate Crisis', sans-serif;
             font-size: clamp(4rem, 13vw, 12rem); /* Ukuran disesuaikan agar proporsional */
             line-height: 0.8;
-            font-weight: 500;
-            letter-spacing: -0.05em;
+            font-weight: 400;
+            /*letter-spacing: -0.05em;*/
             margin: 0;
             color: #f4f4f0;
             cursor: none;
@@ -510,9 +841,9 @@
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.active {
+.reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: none; /* Mengubah translateY(0) menjadi none */
         }
 
 /* --- Bagian Statistik --- */
@@ -637,6 +968,68 @@
             position: relative;
         }
 
+/* --- Hover Prompt (Balon Kata di Pojok Kanan Atas) --- */
+        .hover-prompt {
+            position: absolute;
+            top: 30px; /* Jarak ruang dari atas */
+            right: 30px; /* Jarak ruang dari kanan (tidak menempel pojok) */
+            background-color: #f4f4f0; /* Putih redup yang elegan dan lembut di mata */
+            color: #0a0a0a; /* Teks hitam pekat agar kontras */
+            padding: 12px 22px;
+            
+            /* Trik border-radius untuk membuat bentuk balon kata (ekornya menunjuk ke sudut kiri bawah) */
+            border-radius: 20px 20px 0px 20px; 
+            
+            font-size: 0.95rem;
+            font-weight: 600;
+            pointer-events: none; /* Agar tidak menghalangi klik ke gambar */
+            z-index: 5;
+            
+            /* Shadow hitam yang sangat lembut dan menyebar */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            
+            /* Posisi awal tersembunyi, agak turun sedikit */
+            opacity: 0;
+            transform: translateY(15px) scale(0.9); 
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Balon kata muncul dan meluncur naik ke posisinya saat gambar disorot */
+        .about-image-wrapper:hover .hover-prompt {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- Floating Hearts (Efek saat diklik) --- */
+        .floating-heart {
+            position: absolute;
+            color: #F06767;
+            font-size: 3.8rem; /* Ukuran hati dibesarkan drastis (hampir 2x lipat dari sebelumnya) */
+            pointer-events: none;
+            z-index: 10;
+            transform: translate(-50%, -50%);
+            animation: floatUpHeart 1.2s ease-out forwards;
+            
+            /* Glow merah yang lebih tebal menyesuaikan ukuran hati */
+            text-shadow: 0 0 20px rgba(240, 103, 103, 0.6); 
+        }
+
+        /* Animasi hati terbang ke atas disesuaikan dengan ukuran yang lebih besar */
+        @keyframes floatUpHeart {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, calc(-50% - 50px)) scale(1.2); 
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, calc(-50% - 120px)) scale(1.5); /* Terbang lebih tinggi ke atas */
+            }
+        }
+
         .about-img {
             width: 100%;
             height: 100%;
@@ -687,14 +1080,21 @@
             gap: 12px;
         }
 
+/* --- Software Pill (Pembaruan) --- */
         .software-pill {
-            padding: 10px 22px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px; /* Jarak antara ikon dan teks */
+            
+            /* Padding kiri dibuat lebih kecil (6px) agar ikon bulatnya pas di ujung dalam */
+            padding: 6px 20px 6px 6px; 
+            
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50px;
             font-size: 0.9rem;
             color: #a0a0a0;
             transition: all 0.3s ease;
-            cursor: none; /* Konsisten dengan custom cursor */
+            cursor: none;
         }
 
         /* Interaksi saat hover pada pill software */
@@ -703,6 +1103,144 @@
             color: #0a0a0a;
             border-color: #f4f4f0;
             transform: translateY(-3px);
+        }
+
+        /* --- Skill Pill (Khusus Teks Tanpa Ikon) --- */
+        .skill-pill {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 22px; /* Padding simetris (kiri-kanan sama) agar teks presisi di tengah */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #a0a0a0; /* Abu-abu terang, tetap menjaga nuansa gelap agar tidak menyilaukan */
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        /* Interaksi saat hover pada skill pill */
+        .skill-pill:hover {
+            background-color: #f4f4f0; /* Off-white yang lembut */
+            color: #0a0a0a;
+            border-color: #f4f4f0;
+            transform: translateY(-3px);
+        }
+
+        /* --- Wadah Gambar Ikon Software --- */
+        .software-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%; /* Membuatnya bulat sempurna */
+            overflow: hidden;
+            background-color: #222; /* Warna abu-abu gelap default agar tidak menyilaukan jika gambar gagal dimuat */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0; /* Mencegah ikon menyusut jika teksnya panjang */
+        }
+
+        .software-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+/* --- Tambahan: Art Credit --- */
+        .art-credit {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+        }
+
+/* --- Perbaikan: Highlight Nama & Pronouns --- */
+        .highlight-name {
+            font-size: 1.4rem; /* Sedikit dibesarkan dari teks deskripsi standar (1.1rem) */
+            font-weight: 400; /* Dibuat lebih tebal agar menonjol */
+            color: #f4f4f0; /* Menggunakan warna biru-abu redup agar kontras namun tetap lembut dan tidak terlalu putih */
+        }
+
+        .pronouns {
+            font-size: 0.85rem; /* Dikecilkan dari teks deskripsi standar */
+            font-weight: 400;
+            color: #888; /* Dibuat abu-abu redup agar tidak mendominasi nama */
+            margin-left: 2px; /* Memberi sedikit jarak dari nama */
+            font-style: italic;
+        }
+
+        /* --- Tambahan: Tombol Learn More --- */
+        .btn-learn-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 35px;
+            background-color: #30343c;
+            color: #f4f4f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-top: 0px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+/* --- About Action Area (Tombol & Typing Text) --- */
+        .about-action-area {
+            display: flex;
+            align-items: center;
+            
+            /* --- Kunci Rahasia Tata Letaknya --- */
+            justify-content: space-between; /* Mendorong teks ke ujung kiri penuh, dan tombol ke ujung kanan penuh */
+            
+            gap: 20px; /* Menjaga jarak aman jika di layar HP elemen ini terpaksa bertumpuk */
+            margin-top: 40px;
+            flex-wrap: wrap; 
+        }
+
+        /* Jika belum ada, pastikan tombol tidak memiliki margin-top sisa dari kode lama */
+        .btn-learn-more {
+            margin-top: 0; /* Hapus margin-top di class .btn-learn-more jika masih ada */
+            /* ... (kode lainnya tetap sama) ... */
+        }
+
+        /* --- Styling Teks Mengetik --- */
+        .typing-wrapper {
+            font-size: 0.95rem;
+            color: #f4f4f0; /* Abu-abu redup agar tidak terlalu putih */
+            text-decoration: none;
+            font-style: italic; /* Dibuat miring agar terkesan seperti percakapan santai */
+            cursor: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* --- Animasi Kursor Kedip (|) --- */
+        .blinking-cursor {
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: #C1D4DE; /* Warna oranye senada dengan CTA */
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .btn-learn-more:hover {
+            background-color: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .btn-learn-more:hover .ext-icon {
+            transform: translate(3px, -3px);
         }
 
         /* --- Responsif untuk HP dan Tablet --- */
@@ -718,7 +1256,7 @@
 
         /* Portofolio Asimetris */
         .portfolio-title {
-            font-size: 4rem;
+font-size: clamp(2.5rem, 6vw, 4rem);
             margin: 100px 0 50px;
             border-bottom: 1px solid #333;
             padding-bottom: 20px;
@@ -728,7 +1266,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 5vw;
-            margin-bottom: 150px;
+            margin-bottom: 60px;
         }
 
         .project-item {
@@ -758,15 +1296,277 @@
             font-size: 1.2rem;
         }
 
+        /* --- Tombol See More Works --- */
+        .see-more-wrapper {
+            display: flex;
+            justify-content: center; /* Menengahkan tombol */
+            margin-bottom: 150px; /* Jarak luas sebelum masuk ke Footer */
+        }
+
+        .btn-see-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 45px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            background-color: transparent;
+            color: #f4f4f0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: none; /* Wajib untuk custom cursor */
+        }
+
+        /* Efek saat tombol disorot */
+        .btn-see-more:hover {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            transform: translateY(-5px);
+        }
+
+        /* Animasi panah meluncur saat tombol disorot */
+        .btn-see-more:hover .ext-icon {
+            transform: translate(4px, -4px);
+        }
+
+        /* --- FAQ Section --- */
+        .faq-section {
+            margin: 0 auto 150px;
+            max-width: 800px; /* Dibuat lebih ramping dari container agar lebih fokus dibaca */
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .faq-subtitle {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .faq-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #f4f4f0;
+            margin-bottom: 0;
+        }
+
+        .faq-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* --- Desain Kotak FAQ --- */
+        .faq-item {
+            background-color: #121212;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: none;
+        }
+
+        .faq-question {
+            padding: 24px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #f4f4f0;
+            transition: color 0.3s ease;
+        }
+
+        /* Trik membuat icon + dan - pakai garis pseudo-element */
+        .faq-icon {
+            position: relative;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background-color: currentColor;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-icon::before {
+            width: 100%;
+            height: 2px; /* Garis Horizontal (-) */
+        }
+
+        .faq-icon::after {
+            width: 2px; /* Garis Vertikal (|) */
+            height: 100%;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            padding: 0 30px;
+            opacity: 0;
+            color: #0a0a0a; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-answer p {
+            padding-bottom: 24px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* --- Kondisi Saat FAQ Diklik (Aktif) --- */
+        .faq-item.active {
+            background-color: #C1D4DE; /* Warna biru-abu aksen */
+            border-color: #C1D4DE;
+            transform: scale(1.02); /* Sedikit membesar memberi kesan menonjol ke depan */
+            box-shadow: 0 10px 30px rgba(193, 212, 222, 0.15);
+        }
+
+        .faq-item.active .faq-question {
+            color: #0a0a0a; /* Teks pertanyaan jadi hitam agar kontras dengan latar terang */
+            padding-bottom: 10px; /* Merapatkan jarak ke jawaban */
+        }
+
+        /* Memutar garis vertikal agar menyatu dengan garis horizontal menjadi tanda minus (-) */
+        .faq-item.active .faq-icon::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px; /* Memberikan ruang agar teks jawaban bisa meluncur turun */
+            opacity: 1;
+        }
+
+        /* Responsif HP */
+        @media (max-width: 768px) {
+            .faq-question {
+                padding: 20px;
+                font-size: 1rem;
+            }
+            .faq-answer {
+                padding: 0 20px;
+            }
+            .faq-item.active .faq-answer p {
+                padding-bottom: 20px;
+            }
+            .faq-section {
+                margin-bottom: 80px;
+            }
+        }
+
+/* --- Call To Action (CTA) Section --- */
+        .cta-section {
+            margin: 0 auto 150px auto; /* Jarak bawah sebelum footer */
+            max-width: 1000px; /* Dibuat sedikit lebih ramping dari container agar menonjol */
+        }
+
+        .cta-box {
+            background-color: #121212; /* Sama dengan warna pop-up */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr; /* Kolom kanan (teks) sedikit lebih lebar */
+            gap: 50px;
+            align-items: center;
+        }
+
+        /* Styling Area Gambar */
+        .cta-image {
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cta-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: grayscale(100%) contrast(110%); /* Tema dark mode default */
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+        }
+
+        /* Berubah jadi berwarna dan nge-zoom saat disorot */
+        .cta-image:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        /* Styling Teks */
+        .cta-title {
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            line-height: 1.1;
+            color: #f4f4f0;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .cta-desc {
+            color: #888;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            max-width: 90%;
+        }
+
+        /* Styling Tombol Commissions */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 40px;
+            background-color: #30343c; /* Warna oranye terang */
+            color: #f4f4f0;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: none; /* Konsisten dengan custom cursor */
+            border: 1px solid rgba(255, 255, 255, 0.1);           
+        }
+
+        .cta-btn:hover {
+            background-color: #0a0a0a; /* Oranye lebih gelap */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .cta-btn:hover .ext-icon {
+            transform: translate(3px, -3px);
+        }
+
         /* --- Footer --- */
  /* --- Mega Footer ala Gambar --- */
         footer {
-            padding: 100px 5vw 80px;
+            padding: 50px 5vw 80px;
             display: grid;
             grid-template-columns: 1fr 1.5fr; /* Membagi 2: Area kiri (kosong) lebih kecil, kanan (menu) lebih lebar */
             gap: 5vw;
             /*border-top: 1px solid rgba(255, 255, 255, 0.1);*/
-            margin-top: 100px;
         }
 
         .footer-menus {
@@ -815,6 +1615,18 @@
 
         .footer-column ul li a:hover .ext-icon {
             transform: translate(3px, -3px); /* Panah bergeser ke kanan atas saat hover */
+        }
+
+/* --- Footer Bottom (Copyright) --- */
+        .footer-bottom {
+            grid-column: 1 / -1; /* Trik agar elemen ini membentang memotong semua kolom grid di atasnya */
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Garis pemisah halus dari konten atas */
+            color: #666; /* Warna abu-abu gelap agar tidak mendominasi visual */
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
 
         /* --- Responsif Footer untuk Layar Kecil --- */
@@ -978,7 +1790,7 @@
             }
         }
 
-/* =======================================================
+        /* =======================================================
            PERBAIKAN JARAK (SPACING) KHUSUS UNTUK LAYAR HP
            ======================================================= */
         @media (max-width: 768px) {
@@ -1020,11 +1832,27 @@
 
             /* 5. Footer */
             footer {
-                margin-top: 60px; /* Merapatkan jarak dari proyek terakhir ke footer */
-                padding: 60px 5vw 40px; 
+                margin-top: 0px; /* Merapatkan jarak dari proyek terakhir ke footer */
+                padding: 0px 5vw 40px; 
                 gap: 40px; /* Merapatkan elemen-elemen di dalam footer */
             }
             .footer-left {
                 padding-bottom: 30px;
+            }
+            /* 6. CTA Section (Dalam blok max-width: 768px) */
+            .cta-box {
+                grid-template-columns: 1fr; /* Jadi satu kolom (atas-bawah) */
+                padding: 30px;
+                gap: 30px;
+            }
+            .cta-image {
+                height: 250px; /* Gambar diperpendek di HP */
+                min-height: auto;
+            }
+            .cta-section {
+                margin-bottom: 80px; /* Kurangi jarak bawah ke footer */
+            }
+            .cta-title {
+                font-size: 2rem;
             }
         }
