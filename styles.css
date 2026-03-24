@@ -485,14 +485,67 @@
         }
 
         /* Responsif untuk Layar HP */
+/* =======================================================
+           PERBAIKAN POP-UP MODAL UNTUK LAYAR HP (LEBIH COMPACT)
+           ======================================================= */
         @media (max-width: 576px) {
+            
+            /* --- 1. Mengecilkan Ukuran Dasar Semua Pop-up --- */
+            .modal-content {
+                padding: 35px 25px; /* Mengurangi padding drastis agar kotak tidak memakan seluruh layar */
+                border-radius: 20px;
+            }
+            .close-btn {
+                top: 15px;
+                right: 20px;
+                font-size: 2rem;
+            }
+            .modal-title {
+                font-size: 1.6rem; /* Judul lebih kecil */
+                margin-bottom: 10px;
+            }
+            .modal-desc {
+                font-size: 0.85rem;
+                margin-bottom: 25px;
+                line-height: 1.5;
+            }
+
+            /* --- 2. Perbaikan Pop-up Let's Connect --- */
+            .modal-socials {
+                gap: 8px; /* Merapatkan jarak antar tombol sosmed */
+                margin-bottom: 25px;
+            }
+            .social-pill {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+            .email-btn {
+                padding: 12px 0;
+                font-size: 0.9rem;
+            }
+
+            /* --- 3. Perbaikan Pop-up Shop (Tetap Berdampingan ala Desktop) --- */
             .shop-grid {
-                grid-template-columns: 1fr; /* Kolom jadi bertumpuk atas-bawah di HP */
-                gap: 30px;
+                /* Memaksa tetap 2 kolom berdampingan, tidak ditumpuk ke bawah */
+                grid-template-columns: 1fr 1fr; 
+                gap: 15px; /* Jarak antar kolom dipersempit */
+                margin-top: 20px;
             }
             .shop-image {
-                /* Sedikit memendekkan gambar agar tidak memakan terlalu banyak ruang di layar HP */
-                aspect-ratio: 4 / 3; 
+                aspect-ratio: 1 / 1; /* Mengembalikan gambar menjadi kotak sempurna */
+                border-radius: 12px;
+            }
+            .shop-card {
+                gap: 10px;
+            }
+            /* Menyesuaikan tombol agar teksnya muat di kolom HP yang sempit */
+            .shop-btn-primary,
+            .shop-btn-secondary {
+                padding: 10px 8px;
+                font-size: 0.75rem; /* Huruf dikecilkan */
+                text-align: center;
+                min-height: 45px; /* Menyamakan tinggi kedua tombol */
+                line-height: 1.2;
             }
         }
 
@@ -599,16 +652,18 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: none; 
+            white-space: nowrap;
         }
 
 /* --- Kondisi Saat Melayang (Floating) --- */
-        .hero-top-bar.floating {
+.hero-top-bar.floating {
             position: fixed;
             top: 95px; 
-            width: 480px; /* Sedikit dilebarkan untuk menampung 2 pill yang terpisah */
+            left: 50%; /* TAMBAHAN BARU: Tarik ke tengah 50% dari layar */
+            transform: translateX(-50%); /* TAMBAHAN BARU: Geser mundur separuh ukurannya agar benar-benar presisi di tengah */
+            max-width: 750px;
+            width: 100%; 
             margin-bottom: 0;
-            
-            /* Cangkang utama dibuat transparan total (tidak ada background/border) */
             background-color: transparent;
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
@@ -713,21 +768,26 @@
             }
             /* Netralkan margin saat posisi atas-bawah */
             .hero-top-bar .status-pill { margin-right: 0; }
+.hero-top-bar .time-pill { margin-left: 0; }
             
-            .hero-top-bar.floating {
+.hero-top-bar.floating {
                 flex-direction: row;
+                justify-content: center; /* KUNCI 1: Paksa isinya rata tengah */
                 align-items: center;
                 gap: 0;
-                width: 250px; /* Menyusut rapi di HP */
+                
+                width: max-content; /* KUNCI 2: Lebar mengikuti isi secara otomatis, tidak dipaksa 250px */
+                
                 top: 80px; 
-                transform: translateX(-50%) scale(0.9); 
+                left: 50%; 
+                transform: translateX(-50%) scale(0.95); /* Sedikit dibesarkan menjadi 0.95 agar lebih pas */
             }
-            .hero-top-bar.floating .status-pill {
-                margin-left: auto;
+.hero-top-bar.floating .status-pill {
+                margin-left: 0; /* Hapus margin auto di sini */
                 margin-right: 4px;
             }
             .hero-top-bar.floating .time-pill {
-                margin-right: auto;
+                margin-right: 0; /* Hapus margin auto di sini */
                 margin-left: 4px;
             }
             .hero-top-bar.floating .status-text,
@@ -780,6 +840,40 @@
         .text-right {
             align-self: flex-end;
             text-align: right;
+        }
+
+        /* --- Rolling Text Animation (Hero) --- */
+        .roller-wrapper {
+            display: inline-block;
+            overflow: hidden; /* Menyembunyikan kata lain yang belum mendapat giliran */
+            height: 0.7em; /* Kunci presisi: Tinggi disamakan dengan line-height .hero-title */
+            vertical-align: bottom; /* Menyejajarkan bagian bawah teks dengan tulisan "I'm" */
+            position: relative;
+        }
+
+        .roller-track {
+            display: flex;
+            flex-direction: column;
+            /* 8 detik total durasi, menggunakan gaya tarik-pegas yang sangat empuk */
+            animation: rollNames 8s cubic-bezier(0.8, 0, 0.2, 1) infinite; 
+        }
+
+        .roller-word {
+            display: inline-block;
+            height: 0.8em; 
+            line-height: 0.8;
+            color: #C1D4DE; /* Sengaja kuberi warna biru aksen agar area yang berganti terlihat lebih hidup & menonjol */
+            font-family: 'pixelify sans', sans-serif;
+        }
+
+        /* --- Logika Perhitungan Rel --- */
+        /* Ada 5 kata. Berarti 1 kata = 20% tinggi track (100% / 5). */
+        @keyframes rollNames {
+            0%, 15%   { transform: translateY(0); }          /* Tahan di Rumi */
+            25%, 40%  { transform: translateY(-20%); }       /* Geser ke Aru */
+            50%, 65%  { transform: translateY(-40%); }       /* Geser ke Rumi */
+            75%, 90%  { transform: translateY(-60%); }       /* Geser ke Mika */
+            100%      { transform: translateY(-80%); }       /* Geser ke Rumi (kemudian loop ulang ke 0% tanpa terdeteksi mata) */
         }
 
         .accent {
@@ -963,7 +1057,6 @@
 .marquee-content span {
             /* Teks akan berukuran 1rem di HP, dan perlahan membesar maksimal 1.5rem di layar laptop */
             font-size: clamp(1rem, 2.5vw, 1.5rem); 
-            
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -998,7 +1091,7 @@
         .about-image-wrapper {
             width: 100%;
             height: 75vh;
-            overflow: hidden;
+            /*overflow: hidden;*/
             position: relative;
         }
 
@@ -1070,11 +1163,14 @@
             object-fit: cover;
             filter: grayscale(100%) contrast(110%); /* Hitam putih default */
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         /* Efek saat gambar disorot mouse: Sedikit zoom dan berubah jadi berwarna! */
         .about-image-wrapper:hover .about-img {
             transform: scale(1.05);
+            transform: rotate(5deg);
             filter: grayscale(0%) contrast(100%);
         }
 
@@ -1296,38 +1392,175 @@ font-size: clamp(2.5rem, 6vw, 4rem);
             padding-bottom: 20px;
         }
 
+ /* =======================================================
+           FEATURED PROJECTS (AWWWARDS STYLE)
+           ======================================================= */
         .projects {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 5vw;
-            margin-bottom: 60px;
+            gap: 4vw;
+            margin-bottom: 100px;
         }
 
         .project-item {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            cursor: none;
         }
 
-        /* Membuat layout asimetris dengan menggeser item genap */
+        /* Asimetris: Proyek ke-2 dan ke-4 diturunkan posisinya */
         .project-item:nth-child(even) {
             margin-top: 150px; 
         }
 
-        .project-img {
+        /* --- Wrapper Gambar --- */
+        .project-img-wrapper {
             width: 100%;
-            height: 60vh;
-            background-color: #1a1a1a;
-            transition: transform 0.5s ease;
+            height: 65vh;
+            border-radius: 20px;
+            overflow: hidden; /* Menyembunyikan sisa gambar yang menembus kotak */
+            position: relative;
+            background-color: #121212;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            
+            /* Animasi bayangan dan tekan saat dihover */
+            transition: box-shadow 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .project-item:hover .project-img {
-            transform: scale(0.95);
+        .project-item:hover .project-img-wrapper {
+            transform: scale(0.98); /* Sedikit ditekan ke dalam */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .project-info {
-            margin-top: 20px;
+        /* --- Gambar Parallax (Di Dalam Wrapper) --- */
+        .project-parallax-img {
+            width: 100%;
+            height: 120%; /* Harus lebih tinggi dari kotaknya agar punya ruang untuk digeser */
+            object-fit: cover;
+            position: absolute;
+            top: -10%; 
+            left: 0;
+            filter: grayscale(80%) contrast(110%);
+            transition: filter 0.6s ease;
+            will-change: transform; /* Persiapan untuk animasi JS */
+        }
+
+        .project-item:hover .project-parallax-img {
+            filter: grayscale(0%) contrast(100%); /* Berubah berwarna saat disorot */
+        }
+
+        /* --- Project Info Box --- */
+        .project-info-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 0 10px;
+        }
+
+        /* Meta (Pill Tag & Date) */
+        .project-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 1.2rem;
+            align-items: center;
+        }
+
+        .project-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #f4f4f0;
+            font-weight: 400;
+        }
+
+        .tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .project-date {
+            font-size: 0.85rem;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        /* Title & Description */
+        .project-name {
+            font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+            color: #f4f4f0;
+            line-height: 1.1;
+            transition: color 0.3s ease;
+            font-family: 'climate crisis', sans-serif;
+            font-weight: 400;
+        }
+
+        .project-desc {
+            font-size: 0.95rem;
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Otomatis memotong teks menjadi 2 baris (ellipsis ...) */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* --- Area Kontributor (Foto Tumpuk) --- */
+        .project-contributors {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 5px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08); /* Garis batas halus */
+        }
+
+        .contributor-avatars {
+            display: flex;
+            align-items: center;
+        }
+
+        .contributor-avatars img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #0a0a0a; /* Efek potongan bulat */
+            margin-left: -10px; /* Trik agar gambar bertumpuk ke kiri */
+            position: relative;
+        }
+
+        .contributor-avatars img:first-child { margin-left: 0; z-index: 3; }
+        .contributor-avatars img:nth-child(2) { z-index: 2; }
+        .contributor-avatars img:nth-child(3) { z-index: 1; }
+
+        .contributor-names {
+            font-size: 0.85rem;
+            color: #aaa;
+            font-weight: 500;
+        }
+
+        /* --- HP Responsive (Wajib Ada) --- */
+        @media (max-width: 768px) {
+            .projects {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .project-item:nth-child(even) {
+                margin-top: 0; /* Menghilangkan efek asimetris di layar sempit */
+            }
+            .project-img-wrapper {
+                height: 50vh;
+            }
         }
 
         /* --- Tombol See More Works --- */
@@ -1596,7 +1829,7 @@ font-size: clamp(2.5rem, 6vw, 4rem);
         /* --- Footer --- */
  /* --- Mega Footer ala Gambar --- */
         footer {
-            padding: 50px 5vw 80px;
+            padding: 0px 5vw 0px;
             display: grid;
             grid-template-columns: 1fr 1.5fr; /* Membagi 2: Area kiri (kosong) lebih kecil, kanan (menu) lebih lebar */
             gap: 5vw;
@@ -1846,14 +2079,27 @@ font-size: clamp(2.5rem, 6vw, 4rem);
             }
 
             /* 3. About Me Section */
-            .about-section {
-                margin: 80px 0; /* Memotong jarak luar biasa besar (150px) menjadi setengahnya */
+.about-section {
+                margin: 80px 0; 
             }
             .about-quote {
                 margin-bottom: 25px;
             }
             .about-desc {
                 margin-bottom: 30px;
+            }
+
+            /* --- TAMBAHAN BARU: Mencegah teks typing menabrak tombol di HP --- */
+            .about-action-area {
+                flex-direction: column; /* Mengubah susunan menjadi atas-bawah, bukan kiri-kanan */
+                align-items: flex-start; /* Memastikan rata kiri */
+                gap: 25px; /* Jarak antara teks ketik dan tombol */
+            }
+            
+            .typing-wrapper {
+                width: 100%; /* Membiarkan teks mengambil lebar penuh layar */
+                min-height: 45px; /* Memberi "ruang kosong" tetap. Jika teks panjang memakan 2 baris, tombol di bawahnya tidak akan ikut terdorong naik-turun */
+                line-height: 1.5;
             }
 
             /* 4. Portofolio (Karya Pilihan) */
