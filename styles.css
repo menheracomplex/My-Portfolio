@@ -19,6 +19,15 @@
             background-size: 80px 80px; /* Ukuran kotak grid, bisa kamu perbesar/perkecil */
             background-position: center center;
             background-attachment: fixed; /* Grid tetap diam di tempat saat web di-scroll */
+                body {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version */
+}
+
         }
 
         h2 {
