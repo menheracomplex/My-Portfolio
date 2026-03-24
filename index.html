@@ -518,7 +518,7 @@ My services are mainly aimed at the mid-to-entry level market, making them more 
             const now = new Date();
             
             // Format Hari (Contoh: Senin)
-            const dayFormatter = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Jakarta', weekday: 'long' });
+            const dayFormatter = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Jakarta', weekday: 'short' });
             const dayStr = dayFormatter.format(now);
             
             // Format Tanggal (Contoh: 24 Mar)
