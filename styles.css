@@ -76,7 +76,7 @@
         }
 
         .kaomoji {
-            color: #E25E3A; /* Warna oranye agar lebih pop! */
+            color: #C1D4DE; /* Warna oranye agar lebih pop! */
             display: inline-block;
             margin-left: 10px;
         }
@@ -254,11 +254,12 @@
          border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 12px 24px;
             border-radius: 50px;
-            font-weight: 500;
+            font-weight: 400;
             font-size: 0.95rem;
             cursor: none;
             transition: all 0.3s ease;
             margin-left: 20px; /* Jarak ekstra dari menu teks */
+            font-family: 'Climate Crisis', sans-serif;
         }
 
         .btn-connect:hover {
@@ -443,7 +444,7 @@
             justify-content: center;
             gap: 8px;
             padding: 14px 0;
-            background-color: #E25E3A;
+            background-color: #30343c;
             color: #f4f4f0;
             text-decoration: none;
             border-radius: 50px;
@@ -451,10 +452,12 @@
             font-size: 0.95rem;
             transition: background-color 0.3s ease;
             cursor: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .shop-btn-primary:hover {
-            background-color: #c94d2b;
+            background-color: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Tombol Toko Internasional (Garis Transparan) */
@@ -464,8 +467,8 @@
             justify-content: center;
             gap: 8px;
             padding: 14px 0;
-            background-color: transparent;
-            color: #f4f4f0;
+            background-color: #C1D4DE;
+            color: #0a0a0a;
             text-decoration: none;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
@@ -476,9 +479,9 @@
         }
 
         .shop-btn-secondary:hover {
-            background-color: #f4f4f0;
-            color: #0a0a0a;
-            border-color: #f4f4f0;
+            background-color: transparent;
+            color: #f4f4f0;
+             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Responsif untuk Layar HP */
@@ -598,32 +601,47 @@
             cursor: none; 
         }
 
-.hero-top-bar.floating {
+/* --- Kondisi Saat Melayang (Floating) --- */
+        .hero-top-bar.floating {
             position: fixed;
-            top: 95px; /* Menggantung pas di bawah floating navbar */
-            left: 50%;
-            transform: translateX(-50%);
-            width: max-content; /* Menyusut memeluk ukuran 2 pill */
-            justify-content: center;
-            gap: 5px; /* Mendekatkan kedua pill */
+            top: 95px; 
+            width: 480px; /* Sedikit dilebarkan untuk menampung 2 pill yang terpisah */
             margin-bottom: 0;
             
-            /* Membungkus keduanya dalam satu kapsul kaca gelap yang elegan */
-            background-color: rgba(15, 15, 15, 0.65);
+            /* Cangkang utama dibuat transparan total (tidak ada background/border) */
+            background-color: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Saat melayang, margin menarik keduanya ke tengah, tapi kini masing-masing punya background sendiri */
+        .hero-top-bar.floating .status-pill {
+            margin-left: auto;
+            margin-right: 6px; /* Jarak pemisah antar pill saat di tengah */
+            
+            /* Efek Kaca untuk Pill Status */
+            background-color: rgba(15, 15, 15, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            padding: 6px 15px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 20px; /* Kembalikan padding ke ukuran normal */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         
-        /* Menghilangkan garis luar pill asli agar menyatu halus ke dalam kapsul kaca baru */
-        .hero-top-bar.floating .status-pill,
         .hero-top-bar.floating .time-pill {
-            background-color: transparent;
-            border-color: transparent;
-            padding: 4px 10px;
+            margin-left: 6px; /* Jarak pemisah antar pill saat di tengah */
+            margin-right: auto;
+            
+            /* Efek Kaca untuk Pill Waktu */
+            background-color: rgba(15, 15, 15, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 20px; /* Kembalikan padding ke ukuran normal */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         /* --- Pill Kiri (Commission Status - Merah) --- */
@@ -693,17 +711,25 @@
                 align-items: flex-start; 
                 gap: 15px;
             }
+            /* Netralkan margin saat posisi atas-bawah */
+            .hero-top-bar .status-pill { margin-right: 0; }
             
-            /* Saat melayang di HP, paksa jadi satu baris dan hemat ruang */
             .hero-top-bar.floating {
                 flex-direction: row;
                 align-items: center;
-                gap: 0px;
-                top: 80px; /* Disesuaikan dengan ukuran navbar HP */
-                transform: translateX(-50%) scale(0.9); /* Sedikit dikecilkan */
+                gap: 0;
+                width: 250px; /* Menyusut rapi di HP */
+                top: 80px; 
+                transform: translateX(-50%) scale(0.9); 
             }
-            
-            /* Sembunyikan teks label di HP agar kapsulnya tidak memakan seluruh lebar layar */
+            .hero-top-bar.floating .status-pill {
+                margin-left: auto;
+                margin-right: 4px;
+            }
+            .hero-top-bar.floating .time-pill {
+                margin-right: auto;
+                margin-left: 4px;
+            }
             .hero-top-bar.floating .status-text,
             .hero-top-bar.floating .time-location {
                 display: none; 
@@ -759,6 +785,14 @@
         .accent {
             color: #C1D4DE;
             display: inline-block;
+            font-family: 'pixelify sans', sans-serif;
+            font-size: larger;
+        }
+
+        .accent2 {
+            color: #C1D4DE;
+            display: inline-block;
+            font-family: 'inter', sans-serif !important; 
         }
 
         /* --- Gambar di Tengah (Absolute Center) --- */
@@ -802,9 +836,9 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-size: clamp(1rem, 3vw, 2rem);
             line-height: 1.2;
-            max-width: 500px;
+            max-width: 700px;
             color: #f4f4f0;
             margin: 0;
         }
@@ -1310,7 +1344,7 @@ font-size: clamp(2.5rem, 6vw, 4rem);
             padding: 18px 45px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50px;
-            background-color: transparent;
+            background-color: #30343c;
             color: #f4f4f0;
             text-decoration: none;
             font-size: 1.1rem;
@@ -1323,8 +1357,8 @@ font-size: clamp(2.5rem, 6vw, 4rem);
 
         /* Efek saat tombol disorot */
         .btn-see-more:hover {
-            background-color: #f4f4f0;
-            color: #0a0a0a;
+            background-color: #0a0a0a;
+            color: #f4f4f0;
             transform: translateY(-5px);
         }
 
@@ -1691,6 +1725,7 @@ font-size: clamp(2.5rem, 6vw, 4rem);
             text-decoration: none;
             margin-bottom: 15px;
             cursor: none;
+            font-family: 'pixelify sans', sans-serif;
         }
 
         .footer-tagline {
