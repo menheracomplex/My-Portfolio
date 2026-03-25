@@ -8,17 +8,22 @@
             cursor: none; /* Menyembunyikan kursor bawaan */
         }
 
+/* KUNCI LAYAR HP AGAR TIDAK BOCOR */
+        html, body {
+            max-width: 100vw;
+            
+            /* PERBAIKAN: Gunakan 'clip' alih-alih 'hidden' 
+               agar fungsi sticky navbar kembali bekerja! */
+            overflow-x: clip; 
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0a0a0a;
             color: #f4f4f0;
-            overflow-x: hidden;
-            /*background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);*/
-            background-size: 80px 80px; /* Ukuran kotak grid, bisa kamu perbesar/perkecil */
+            background-size: 80px 80px; 
             background-position: center center;
-            background-attachment: fixed; /* Grid tetap diam di tempat saat web di-scroll */
+            background-attachment: fixed; 
         }
 
         /* =======================================================
@@ -866,33 +871,38 @@
         @media (max-width: 576px) {
             .hero-top-bar {
                 flex-direction: column; 
-                align-items: flex-start; 
+                align-items: center; /* PERBAIKAN: Mengubah flex-start menjadi center */
                 gap: 15px;
             }
-            /* Netralkan margin saat posisi atas-bawah */
-            .hero-top-bar .status-pill { margin-right: 0; }
-.hero-top-bar .time-pill { margin-left: 0; }
             
-.hero-top-bar.floating {
+            /* Memastikan pill diam di tengah saat posisinya di atas */
+            .hero-top-bar .status-pill,
+            .hero-top-bar .time-pill { 
+                margin: 0 auto; 
+            }
+            
+            .hero-top-bar.floating {
                 flex-direction: row;
-                justify-content: center; /* KUNCI 1: Paksa isinya rata tengah */
+                justify-content: center; 
                 align-items: center;
                 gap: 0;
                 
-                width: 100%; /* KUNCI 2: Lebar mengikuti isi secara otomatis, tidak dipaksa 250px */
-                
+                width: 100%; 
                 top: 80px; 
                 left: 50%; 
-                transform: translateX(-50%) scale(0.95); /* Sedikit dibesarkan menjadi 0.95 agar lebih pas */
+                /* PERBAIKAN: Menghapus scale(0.95) karena merusak kalkulasi lebar layar HP */
+                transform: translateX(-50%); 
             }
-.hero-top-bar.floating .status-pill {
-                margin-left: 0; /* Hapus margin auto di sini */
+            
+            .hero-top-bar.floating .status-pill {
+                margin-left: auto; 
                 margin-right: 4px;
             }
             .hero-top-bar.floating .time-pill {
-                margin-right: 0; /* Hapus margin auto di sini */
+                margin-right: auto; 
                 margin-left: 4px;
             }
+            
             .hero-top-bar.floating .status-text,
             .hero-top-bar.floating .time-location {
                 display: none; 
@@ -1138,15 +1148,22 @@
         }
 
 /* --- Running Text / Marquee --- */
+/* --- Running Text / Marquee --- */
         .marquee-wrapper {
             width: 100vw;
-            margin-left: -5vw; /* Menarik elemen agar membentang penuh melewati batas container */
-            background-color: #C1D4DE; /* Hijau cerah tapi tidak terlalu putih agar nyaman dipandang */
+            /* KUNCI ANTI-BOCOR: Trik memusatkan elemen 100vw di dalam container yang punya padding */
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            
+            background-color: #C1D4DE; 
             color: #0a0a0a;
             padding: 25px 0;
             overflow: hidden;
             display: flex;
-            margin-top: 50px; /* Jarak dari hero section */
+            margin-top: 50px; 
             margin-bottom: 50px;
         }
 
@@ -2526,26 +2543,29 @@ font-size: clamp(2.5rem, 6vw, 4rem);
         }
 
         /* --- Responsif HP --- */
+/* --- Responsif HP (Perbaikan Jarak Tombol) --- */
         @media (max-width: 768px) {
             .floating-controls {
                 bottom: 20px;
-                right: 0px;
+                right: 20px; /* PERBAIKAN: Jangan 0px agar tombol tidak menabrak batas layar */
                 gap: 10px;
             }
             .floating-btn {
                 height: 50px;
-                padding: 0 18px;
-                font-size: 0.75rem;
+                padding: 0 15px; /* Dikecilkan sedikit agar lebih lega di HP */
+                font-size: 0.7rem;
             }
             .back-top-btn {
                 width: 50px;
+                margin-left: -8px; 
             }
             .back-top-btn.show {
-                max-height: 50px;
+                max-width: 50px;
             }
             .side-nav-list {
-                width: 190px;
+                width: 180px;
                 padding: 15px;
+                right: 0; /* Mengunci kotak menu agar sejajar dengan tombol */
             }
         }
 
